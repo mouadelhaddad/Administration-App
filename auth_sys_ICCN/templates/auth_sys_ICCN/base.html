@@ -1,0 +1,178 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="icon" type="image/png"  href="{% static 'auth_sys_ICCN/logo.png' %}">
+    <link rel="stylesheet"  href="{% static 'auth_sys_ICCN/style.css' %}">
+
+    <!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>ICCN PROJECT</title>
+</head>
+<style>
+.vertical-nav {
+  min-width: 17rem;
+  width: 17rem;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+.page-content {
+  width: 100%;
+  transition: all 0.4s;
+
+}
+.container
+{
+  max-width: 100% !important;
+}
+#bienvenu
+{
+    margin-top: 0rem !important;
+}
+#navbarNav
+{
+ margin-left: 12rem;
+}
+#page-wrapper
+{
+      margin-left: 17rem;
+}
+#sidebarCollapse
+{
+    margin-top: 5%;
+    background-color: #ffc107 !important;
+    margin-left: 17rem;
+}
+#sidebar.active {
+  margin-left: -17rem;
+}
+
+#content.active {
+  width: 120%;
+  margin: 0;
+  margin-left: -17rem;
+}
+#page-wrapper.active
+{
+      margin-left: 0rem;
+}
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -17rem;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #content {
+    width: 100%;
+    margin: 0;
+  }
+
+  #content.active {
+    margin-left: 17rem;
+    width: calc(100% - 17rem);
+  }
+}
+.separator {
+  margin: 3rem 0;
+  border-bottom: 1px dashed #fff;
+}
+
+.text-uppercase {
+  letter-spacing: 0.1em;
+}
+
+.text-gray {
+  color: #aaa;
+}
+.chart_style
+{
+    width: 95% !important;
+    height: 27rem !important;
+    margin: auto;
+}
+.title{
+    color: #aaa;
+    letter-spacing: 0.1em;
+    font-size: 100%;
+    font-weight: 700 !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    margin-bottom: 5%;
+}
+.vertical-nav
+{
+    top: 10%;
+}
+.navbar{
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+    }
+    </style>
+<body>
+
+
+<nav class="navbar navbar-expand-md navbar-light bg-warning">
+<div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">
+         <img src="{% static 'auth_sys_ICCN/logo.png' %}" width="30" height="30" class="d-inline-block align-top">
+        <span>Projet X</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ Gestion_serveur }}">
+                    <a class="nav-link" href="{% url 'Gestion_serveur' %}">Gestions des serveurs</a>
+                </li>
+                <li class="nav-item {{ Gestion_utilisateur }}">
+                    <a class="nav-link" href="{% url 'Gestion_utilisateur' %}">Gestions des utilisateurs</a>
+                </li>
+        </ul>
+        Logged In as : {{ user.username }}
+    {% endif %}
+    <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+                    <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                        {% csrf_token %}
+                        <button id="signOutBtn" type="submit">Logout</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+</nav>
+
+<div class="container">
+{% block content %}{% endblock %}
+</div>
+
+
+</body>
+</html>

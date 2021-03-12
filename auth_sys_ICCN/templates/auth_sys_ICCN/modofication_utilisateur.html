@@ -1,0 +1,38 @@
+{% extends "auth_sys_ICCN/base.html" %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h1>Modifier Un utilisateur </h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="password">Saisissez votre mot de passe</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+                <div class="form-group">
+                    <label for="newpassword">Retapez le mot de passe</label>
+                    <input type="password" name="newpassword" class="form-control" id="newpassword">
+                </div>
+                <button type="submit" class="btn btn-primary">Modifier</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                Votre Utilisateur n'est pas enconre dans le systeme? <a href="{% url 'ajouter_utilisateur' %}">Ajoute un utilisateur ici</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

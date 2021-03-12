@@ -1,0 +1,47 @@
+{% extends "auth_sys_ICCN/base.html" %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h1>modifier ou supprimer</h1>
+            <h2>un serveur</h2>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="ServerID">Server ID</label>
+                    <input type="number" name="ServerID" class="form-control" id="ServerID">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="mod" checked>
+                    <label class="form-check-label" for="exampleRadios1">modifier</label>
+                    <br>
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="sup">
+                    <label class="form-check-label" for="exampleRadios2">Suprimer</label>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">modifier ou supprimer</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                Votre serveur n'est pas enconre dans le systeme? <a href="{% url 'ajouter_serveur' %}">Ajoute un serveur ici</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
